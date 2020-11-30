@@ -1,3 +1,12 @@
+**NOTE** (Travis Fischer): this is a custom fork of [microbundle](https://github.com/developit/microbundle) which focuses on React for [create-react-library](https://github.com/transitive-bullshit/create-react-library) which adds a few nice-to-have features:
+
+- Changes the default `jsx` option to `React.createElement`
+- `rollup-plugin-smart-asset` - smart bundling of imported image assets
+- `@babel/plugin-proposal-decorators` - add support for legacy decorators - very convenient for [mobx](https://mobx.js.org)
+- `@babel/plugin-proposal-optional-chaining` - adds `?.` syntax support
+
+---
+
 <p align="center">
   <img src="https://i.imgur.com/LMEgZMh.gif" width="597" alt="microbundle">
 </p>
@@ -34,7 +43,9 @@
 
 1️⃣ **Install** by running: `npm i -D microbundle`
 
-2️⃣ **Set up** your `package.json`:
+`npm i -D microbundle-crl`
+
+### Set up your `package.json`
 
 ```js
 {

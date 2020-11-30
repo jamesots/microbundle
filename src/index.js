@@ -18,6 +18,8 @@ import alias from '@rollup/plugin-alias';
 import postcss from 'rollup-plugin-postcss';
 import typescript from 'rollup-plugin-typescript2';
 import json from '@rollup/plugin-json';
+import svgr from '@svgr/rollup';
+import smartAsset from 'rollup-plugin-smart-asset';
 import logError from './log-error';
 import { isDir, isFile, stdout, isTruthy, removeScope } from './utils';
 import { getSizeInfo } from './lib/compressed-size';
@@ -31,7 +33,18 @@ import { getConfigFromPkgJson, getName } from './lib/package-info';
 import { shouldCssModules, cssModulesConfig } from './lib/css-modules';
 
 // Extensions to use when resolving modules
-const EXTENSIONS = ['.ts', '.tsx', '.js', '.jsx', '.es6', '.es', '.mjs'];
+const EXTENSIONS = [
+	'.ts',
+	'.tsx',
+	'.js',
+	'.jsx',
+	'.es6',
+	'.es',
+	'.mjs',
+	'.jpg',
+	'.png',
+	'.svg',
+];
 
 const WATCH_OPTS = {
 	exclude: 'node_modules/**',
@@ -475,6 +488,13 @@ function createConfig(options, entry, format, writeMeta) {
 						include: /\/node_modules\//,
 					}),
 					json(),
+					smartAsset({
+						url: 'copy',
+						useHash: true,
+						keepName: true,
+						keepImport: true,
+					}),
+					svgr(),
 					{
 						// We have to remove shebang so it doesn't end up in the middle of the code somewhere
 						transform: code => ({
@@ -489,16 +509,17 @@ function createConfig(options, entry, format, writeMeta) {
 							typescript: require('typescript'),
 							cacheRoot: `./node_modules/.cache/.rts2_cache_${format}`,
 							useTsconfigDeclarationDir: true,
+							objectHashIgnoreUnknownHack: true,
 							tsconfigDefaults: {
 								compilerOptions: {
 									sourceMap: options.sourcemap,
 									declaration: true,
 									declarationDir: getDeclarationDir({ options, pkg }),
-									jsx: 'preserve',
+									jsx: 'preserve', // TODO: switch to react if CRL
 									jsxFactory:
 										// TypeScript fails to resolve Fragments when jsxFactory
 										// is set, even when it's the same as the default value.
-										options.jsx === 'React.createElement'
+										options.jsx === 'React.createElement' // TODO: default React.createElement if CRL
 											? undefined
 											: options.jsx || 'h',
 								},
@@ -537,7 +558,7 @@ function createConfig(options, entry, format, writeMeta) {
 							modern,
 							compress: options.compress !== false,
 							targets: options.target === 'node' ? { node: '8' } : undefined,
-							pragma: options.jsx || 'h',
+							pragma: options.jsx || 'React.createElement',
 							pragmaFrag: options.jsxFragment || 'Fragment',
 							typescript: !!useTypescript,
 							jsxImportSource: options.jsxImportSource || false,

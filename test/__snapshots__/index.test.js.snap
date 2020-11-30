@@ -1705,30 +1705,30 @@ jsx
 
 
 Build \\"jsx\\" to dist:
-221 B: jsx.js.gz
-179 B: jsx.js.br
-223 B: jsx.esm.js.gz
-193 B: jsx.esm.js.br
-298 B: jsx.umd.js.gz
-236 B: jsx.umd.js.br"
+193 B: jsx.js.gz
+147 B: jsx.js.br
+197 B: jsx.esm.js.gz
+160 B: jsx.esm.js.br
+277 B: jsx.umd.js.gz
+228 B: jsx.umd.js.br"
 `;
 
 exports[`fixtures build jsx with microbundle 2`] = `6`;
 
 exports[`fixtures build jsx with microbundle 3`] = `
-"var n=function(n,r){return{tag:n,props:r,children:[].slice.call(arguments,2)}},r=function(n){return n.children},l=function(){function l(){}return l.prototype.render=function(){return n(\\"div\\",{id:\\"app\\"},n(\\"h1\\",null,\\"Hello, World!\\"),n(\\"p\\",null,\\"A JSX demo.\\"),n(r,null,n(\\"p\\",null,\\"Test fragment\\")))},l}();export default l;
+"var e=function(e){return e.children},t=function(){function t(){}return t.prototype.render=function(){return React.createElement(\\"div\\",{id:\\"app\\"},React.createElement(\\"h1\\",null,\\"Hello, World!\\"),React.createElement(\\"p\\",null,\\"A JSX demo.\\"),React.createElement(e,null,React.createElement(\\"p\\",null,\\"Test fragment\\")))},t}();export default t;
 //# sourceMappingURL=jsx.esm.js.map
 "
 `;
 
 exports[`fixtures build jsx with microbundle 4`] = `
-"var n=function(n,r){return{tag:n,props:r,children:[].slice.call(arguments,2)}},r=function(n){return n.children};module.exports=function(){function l(){}return l.prototype.render=function(){return n(\\"div\\",{id:\\"app\\"},n(\\"h1\\",null,\\"Hello, World!\\"),n(\\"p\\",null,\\"A JSX demo.\\"),n(r,null,n(\\"p\\",null,\\"Test fragment\\")))},l}();
+"var e=function(e){return e.children};module.exports=function(){function t(){}return t.prototype.render=function(){return React.createElement(\\"div\\",{id:\\"app\\"},React.createElement(\\"h1\\",null,\\"Hello, World!\\"),React.createElement(\\"p\\",null,\\"A JSX demo.\\"),React.createElement(e,null,React.createElement(\\"p\\",null,\\"Test fragment\\")))},t}();
 //# sourceMappingURL=jsx.js.map
 "
 `;
 
 exports[`fixtures build jsx with microbundle 5`] = `
-"!function(n,e){\\"object\\"==typeof exports&&\\"undefined\\"!=typeof module?module.exports=e():\\"function\\"==typeof define&&define.amd?define(e):(n=n||self).jsx=e()}(this,function(){var n=function(n,e){return{tag:n,props:e,children:[].slice.call(arguments,2)}},e=function(n){return n.children};return function(){function t(){}return t.prototype.render=function(){return n(\\"div\\",{id:\\"app\\"},n(\\"h1\\",null,\\"Hello, World!\\"),n(\\"p\\",null,\\"A JSX demo.\\"),n(e,null,n(\\"p\\",null,\\"Test fragment\\")))},t}()});
+"!function(e,t){\\"object\\"==typeof exports&&\\"undefined\\"!=typeof module?module.exports=t():\\"function\\"==typeof define&&define.amd?define(t):(e=e||self).jsx=t()}(this,function(){var e=function(e){return e.children};return function(){function t(){}return t.prototype.render=function(){return React.createElement(\\"div\\",{id:\\"app\\"},React.createElement(\\"h1\\",null,\\"Hello, World!\\"),React.createElement(\\"p\\",null,\\"A JSX demo.\\"),React.createElement(e,null,React.createElement(\\"p\\",null,\\"Test fragment\\")))},t}()});
 //# sourceMappingURL=jsx.umd.js.map
 "
 `;

@@ -107,6 +107,13 @@ export default () => {
 								],
 							},
 						{
+							name: '@babel/plugin-proposal-decorators',
+							legacy: true,
+						},
+						{
+							name: '@babel/plugin-proposal-optional-chaining',
+						},
+						{
 							name: '@babel/plugin-proposal-class-properties',
 							loose: true,
 						},
