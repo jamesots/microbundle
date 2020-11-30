@@ -1,4 +1,6 @@
-**NOTE** (Travis Fischer): this is a custom fork of [microbundle](https://github.com/developit/microbundle) which focuses on React for [create-react-library](https://github.com/transitive-bullshit/create-react-library) which adds a few nice-to-have features:
+**NOTE** This is a fork of microbundle into which I am merging Travis Fischer's microbundle-crl, to work out what has changed in his version, and to see if I can merge his changes nicely into the main microbundle repo.
+
+(Travis Fischer): this is a custom fork of [microbundle](https://github.com/developit/microbundle) which focuses on React for [create-react-library](https://github.com/transitive-bullshit/create-react-library) which adds a few nice-to-have features:
 
 - Changes the default `jsx` option to `React.createElement`
 - `rollup-plugin-smart-asset` - smart bundling of imported image assets
