@@ -106,11 +106,11 @@ export default () => {
 									'transform-fast-rest',
 								],
 							},
-						{
+						customOptions.crl && {
 							name: '@babel/plugin-proposal-decorators',
 							legacy: true,
 						},
-						{
+						customOptions.crl && {
 							name: '@babel/plugin-proposal-optional-chaining',
 						},
 						{

@@ -33,7 +33,9 @@ import { getConfigFromPkgJson, getName } from './lib/package-info';
 import { shouldCssModules, cssModulesConfig } from './lib/css-modules';
 
 // Extensions to use when resolving modules
-const EXTENSIONS = [
+const EXTENSIONS = ['.ts', '.tsx', '.js', '.jsx', '.es6', '.es', '.mjs'];
+
+const EXTENSIONS_CRL = [
 	'.ts',
 	'.tsx',
 	'.js',
@@ -488,13 +490,14 @@ function createConfig(options, entry, format, writeMeta) {
 						include: /\/node_modules\//,
 					}),
 					json(),
-					smartAsset({
-						url: 'copy',
-						useHash: true,
-						keepName: true,
-						keepImport: true,
-					}),
-					svgr(),
+					options.crl &&
+						smartAsset({
+							url: 'copy',
+							useHash: true,
+							keepName: true,
+							keepImport: true,
+						}),
+					options.crl && svgr(),
 					{
 						// We have to remove shebang so it doesn't end up in the middle of the code somewhere
 						transform: code => ({
@@ -509,19 +512,20 @@ function createConfig(options, entry, format, writeMeta) {
 							typescript: require('typescript'),
 							cacheRoot: `./node_modules/.cache/.rts2_cache_${format}`,
 							useTsconfigDeclarationDir: true,
-							objectHashIgnoreUnknownHack: true,
+							objectHashIgnoreUnknownHack: !!options.crl,
 							tsconfigDefaults: {
 								compilerOptions: {
 									sourceMap: options.sourcemap,
 									declaration: true,
 									declarationDir: getDeclarationDir({ options, pkg }),
-									jsx: 'preserve', // TODO: switch to react if CRL
+									jsx: options.crl ? 'react' : 'preserve', // TODO: switch to react if CRL
 									jsxFactory:
 										// TypeScript fails to resolve Fragments when jsxFactory
 										// is set, even when it's the same as the default value.
 										options.jsx === 'React.createElement' // TODO: default React.createElement if CRL
 											? undefined
-											: options.jsx || 'h',
+											: options.jsx ||
+											  (options.crl ? 'React.createElement' : 'h'),
 								},
 								files: options.entries,
 							},
@@ -550,7 +554,7 @@ function createConfig(options, entry, format, writeMeta) {
 						}),
 					customBabel()({
 						babelHelpers: 'bundled',
-						extensions: EXTENSIONS,
+						extensions: options.crl ? EXTENSIONS_CRL : EXTENSIONS,
 						exclude: 'node_modules/**',
 						passPerPreset: true, // @see https://babeljs.io/docs/en/options#passperpreset
 						custom: {
